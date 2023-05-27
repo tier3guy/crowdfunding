@@ -4,6 +4,10 @@
 /.pnp
 .pnp.js
 
+# secrets
+.env
+/thirdweb/.env
+
 # testing
 /coverage
 
