@@ -10,7 +10,7 @@ const Home = () => {
   console.log(allCampaign);
 
   return (
-    <div className="w-full ">
+    <div className="w-full">
       <h1 className="text-white text-3xl font-semibold my-4">
         {`All Campaigns (${allCampaign.length})`}
       </h1>

@@ -18,7 +18,7 @@ const Routes = [
   },
   {
     exact: true,
-    path: "/campaign-details",
+    path: "/campaign-details/:id",
     element: CampaignDetails,
   },
 ];
