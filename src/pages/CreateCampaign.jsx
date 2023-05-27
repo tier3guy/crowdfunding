@@ -1,10 +1,6 @@
 // Internal Imports
 import { useState } from "react";
 
-// External Imports
-import { ethers } from "ethers";
-import { Web3Button } from "@thirdweb-dev/react";
-
 // Assets
 import { Money } from "../assets/icons";
 
@@ -15,9 +11,8 @@ import { Button } from "../components";
 import { useStateContext } from "../contexts";
 
 const CreateCampaign = () => {
-  const { ContractAddress } = useStateContext();
+  const { createCampaign } = useStateContext();
 
-  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     title: "",
@@ -26,7 +21,6 @@ const CreateCampaign = () => {
     target: "",
     deadline: "",
   });
-
   const label = {
     name: "Your Name *",
     title: "Campaign Title *",
@@ -35,7 +29,6 @@ const CreateCampaign = () => {
     target: "Goal *",
     deadline: "End Date *",
   };
-
   const placeholder = {
     name: "John Doe",
     title: "Write Title",
@@ -50,7 +43,7 @@ const CreateCampaign = () => {
       <h1 className="text-center text-3xl mb-6 font-bold">
         Start a new Campaign 🚀
       </h1>
-      <form className="w-full md:w-2/3">
+      <div className="w-full md:w-2/3">
         {Object.keys(formData).map((key, index) => {
           return (
             <div key={index} className="flex flex-col space-y-3 my-4 w-full">
@@ -96,21 +89,20 @@ const CreateCampaign = () => {
             </div>
           );
         })}
-        <Web3Button
-          contractAddress={ContractAddress}
-          action={async (contract) => {}}
-          style={{
-            padding: "0px",
-            background: "transparent",
-            width: "100%",
+        <Button
+          label={"Start a new Campaign"}
+          onClick={() => {
+            createCampaign(
+              formData.title,
+              formData.description,
+              formData.image,
+              formData.target,
+              formData.deadline
+            );
           }}
-        >
-          <Button
-            label={loading ? "Loading ..." : "Start you new Campaign"}
-            styles="w-full p-[25px] md:p-[15px]"
-          />
-        </Web3Button>
-      </form>
+          styles="w-full p-[20px]"
+        />
+      </div>
     </div>
   );
 };

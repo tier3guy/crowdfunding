@@ -14,7 +14,7 @@ import { NavLinks } from "../routes";
 
 // External Imports
 import { Link, useNavigate } from "react-router-dom";
-import { useMetamask } from "@thirdweb-dev/react";
+// import { ConnectWallet } from "@thirdweb-dev/react";
 
 // Utilies
 import { CapitilizeFirstLetter } from "../utils";
@@ -27,10 +27,8 @@ const Navbar = () => {
   const [toggleMenu, setToggleMenu] = useState(true);
   const [active, setActive] = useState("dashboard");
 
-  const { setModalMessage } = useStateContext();
+  const { setModalMessage, address, connect } = useStateContext();
   const navigate = useNavigate();
-  const { __address } = useStateContext();
-  const connect = useMetamask();
 
   const toggleMenuBar = () => {
     setToggleMenu(!toggleMenu);
@@ -62,10 +60,10 @@ const Navbar = () => {
           />
           <div className="flex space-x-3 items-center">
             <Button
-              label={__address ? "Create a Campaign" : "Connect"}
-              styles={__address ? "bg-green" : "bg-purple"}
+              label={address ? "Create a Campaign" : "Connect"}
+              styles={address ? "bg-green" : "bg-purple"}
               onClick={
-                __address
+                address
                   ? () => {
                       navigate("/create-campaign");
                     }
@@ -135,15 +133,15 @@ const Navbar = () => {
             );
           })}
           <Button
-            label={__address ? "Create a Campaign" : "Connect"}
+            label={address ? "Create a Campaign" : "Connect"}
             onClick={
-              __address
+              address
                 ? () => {
                     navigate("/create-campaign");
                   }
                 : connectToWallet
             }
-            styles={`w-full mb-4 ${__address ? "bg-green" : "bg-purple"}`}
+            styles={`w-full mb-4 ${address ? "bg-green" : "bg-purple"}`}
           />
         </div>
       </div>
