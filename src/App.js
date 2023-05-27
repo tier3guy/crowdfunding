@@ -1,49 +1,45 @@
-import { ConnectWallet } from "@thirdweb-dev/react";
-import "./styles/Home.css";
+// Components
+import { Sidebar, Navbar, DialogBox } from "./components";
 
-export default function Home() {
+// Contexts
+import { useStateContext } from "./contexts";
+
+// Routes
+import { Routings } from "./routes";
+
+// External Imports
+import { Route, Routes } from "react-router-dom";
+
+const App = () => {
+  const { isModalActive, modalMessage } = useStateContext();
+
   return (
-    <div className="container">
-      <main className="main">
-        <h1 className="title">
-          Welcome to <a href="https://thirdweb.com/">thirdweb</a>!
-        </h1>
-
-        <p className="description">
-          Get started by configuring your desired network in{" "}
-          <code className="code">src/index.js</code>, then modify the{" "}
-          <code className="code">src/App.js</code> file!
-        </p>
-
-        <div className="connect">
-          <ConnectWallet dropdownPosition={{ side: 'bottom', align: 'center'}} />
+    <>
+      <DialogBox
+        active={isModalActive === undefined ? false : isModalActive}
+        message={modalMessage}
+      />
+      <div className="relative bg-dark sm:p-6 p-4 flex flex-row h-screen sm:space-x-6 space-x-2">
+        <div className="hidden sm:flex flex-col items-center justify-between h-full">
+          <Sidebar />
         </div>
-
-        <div className="grid">
-          <a href="https://portal.thirdweb.com/" className="card">
-            <h2>Portal &rarr;</h2>
-            <p>
-              Guides, references and resources that will help you build with
-              thirdweb.
-            </p>
-          </a>
-
-          <a href="https://thirdweb.com/dashboard" className="card">
-            <h2>Dashboard &rarr;</h2>
-            <p>
-              Deploy, configure and manage your smart contracts from the
-              dashboard.
-            </p>
-          </a>
-
-          <a href="https://portal.thirdweb.com/templates" className="card">
-            <h2>Templates &rarr;</h2>
-            <p>
-              Discover and clone template projects showcasing thirdweb features.
-            </p>
-          </a>
+        <div className="w-full flex flex-col space-y-4 h-full overflow-y-scroll">
+          <Navbar />
+          <div>
+            <Routes>
+              {Routings.map((route, index) => (
+                <Route
+                  key={index}
+                  path={route.path}
+                  element={<route.element />}
+                />
+              ))}
+            </Routes>
+          </div>
         </div>
-      </main>
-    </div>
+      </div>
+    </>
   );
-}
+};
+
+export default App;
