@@ -64,7 +64,11 @@ contract CrowdFunding {
     }
 
     function deleteCampaign(uint256 _id) public {
-        delete campaigns[_id];
+        for(uint i = _id; i<campaignCount-1; i++){
+            campaigns[i] = campaigns[i+1];
+        }
+        campaignCount--;
+        campaigns.pop();
     }
 
     function getAllCampaigns() public view returns (Campaign[] memory) {
