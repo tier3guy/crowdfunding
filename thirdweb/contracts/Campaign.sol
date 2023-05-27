@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.9;
 
-// Dashboard - https://thirdweb.com/sepolia/0x21a557902fe687B340e36C2C912782C18e64BB2D/explorer
+// Dashboard - https://thirdweb.com/sepolia/0xc8408560b640D35Af1e635cbbCDDFe9B239151B1/explorer
 
 contract CrowdFunding {
     struct Campaign {

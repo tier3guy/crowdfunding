@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 // Components
 import Icon from "./Icon";
 
@@ -12,8 +10,11 @@ import { Logo, Sun } from "../assets/icons";
 // External Imports
 import { useNavigate } from "react-router-dom";
 
+// Contexts
+import { useStateContext } from "../contexts";
+
 const Sidebar = () => {
-  const [active, setActive] = useState("dashboard");
+  const { active, setActive } = useStateContext();
   const navigate = useNavigate();
   return (
     <div className="text-white h-full flex flex-col justify-between items-center space-y-4">

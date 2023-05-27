@@ -25,9 +25,9 @@ import { useStateContext } from "../contexts";
 const Navbar = () => {
   const [value, setValue] = useState("");
   const [toggleMenu, setToggleMenu] = useState(true);
-  const [active, setActive] = useState("dashboard");
 
-  const { setModalMessage, address, connect } = useStateContext();
+  const { setModalMessage, address, connect, active, setActive } =
+    useStateContext();
   const navigate = useNavigate();
 
   const toggleMenuBar = () => {
@@ -65,6 +65,7 @@ const Navbar = () => {
               onClick={
                 address
                   ? () => {
+                      setActive("campaigns");
                       navigate("/create-campaign");
                     }
                   : connectToWallet

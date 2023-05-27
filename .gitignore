@@ -5,6 +5,10 @@
 .pnp.js
 .env
 /thirdweb/.env
+/thirdweb/artifacts-zk
+/thirdweb/artifacts
+/thirdweb/cache-zk
+/thirdweb/cache
 
 # testing
 /coverage

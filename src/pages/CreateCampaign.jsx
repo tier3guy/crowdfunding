@@ -10,8 +10,11 @@ import { Button } from "../components";
 // Contexts
 import { useStateContext } from "../contexts";
 
+// Utils
+import { checkImageURL } from "../utils";
+
 const CreateCampaign = () => {
-  const { createCampaign } = useStateContext();
+  const { createCampaign, setModalMessage } = useStateContext();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -92,7 +95,19 @@ const CreateCampaign = () => {
         <Button
           label={"Start a new Campaign"}
           onClick={() => {
+            checkImageURL(formData.image)
+              .then((valid) => {
+                if (!valid) {
+                  setModalMessage("Enter a valid url.");
+                  return;
+                }
+              })
+              .catch((error) => {
+                setModalMessage(error.message);
+                return;
+              });
             createCampaign(
+              formData.name,
               formData.title,
               formData.description,
               formData.image,
