@@ -3,8 +3,6 @@
 /thirdweb/node_modules
 /.pnp
 .pnp.js
-
-# secrets
 .env
 /thirdweb/.env
 
