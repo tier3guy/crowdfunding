@@ -2,12 +2,7 @@
 import { Link } from "react-router-dom";
 import { Thirdweb } from "../assets/icons";
 
-const image =
-  "https://images.unsplash.com/photo-1666919643134-d97687c1826c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=871&q=80";
-
 const CampaignCard = ({ data }) => {
-  console.log(data);
-
   return (
     <Link>
       <div className="bg-active rounded-lg overflow-hidden shadow-md mb-4 md:mb-0">

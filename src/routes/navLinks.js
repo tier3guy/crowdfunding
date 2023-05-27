@@ -42,7 +42,7 @@ const Navlinks = [
     name: "logout",
     imgUrl: Logout,
     link: "/",
-    disabled: true,
+    disabled: false,
   },
 ];
 

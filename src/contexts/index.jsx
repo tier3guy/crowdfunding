@@ -17,6 +17,7 @@ const StateContextProvider = ({ children }) => {
   const [modalMessage, setModalMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [active, setActive] = useState("dashboard");
+  const [isLogoutModalOn, setIsLogoutModalOn] = useState(false);
 
   const SetModalMessge = (message) => {
     setModalMessage(message);
@@ -118,6 +119,8 @@ const StateContextProvider = ({ children }) => {
         getAllCampaigns,
         active,
         setActive,
+        isLogoutModalOn,
+        setIsLogoutModalOn,
       }}
     >
       {children}

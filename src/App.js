@@ -1,5 +1,5 @@
 // Components
-import { Sidebar, Navbar, DialogBox } from "./components";
+import { Sidebar, Navbar, DialogBox, LogoutModal } from "./components";
 
 // Pages
 import { Loading } from "./pages";
@@ -14,7 +14,8 @@ import { Routings } from "./routes";
 import { Route, Routes } from "react-router-dom";
 
 const App = () => {
-  const { isModalActive, modalMessage, loading } = useStateContext();
+  const { isModalActive, modalMessage, loading, isLogoutModalOn } =
+    useStateContext();
 
   return (
     <>
@@ -23,6 +24,7 @@ const App = () => {
         message={modalMessage}
       />
       {loading && <Loading />}
+      {isLogoutModalOn && <LogoutModal />}
       <div className="relative bg-dark sm:p-6 p-4 flex flex-row h-screen sm:space-x-6 space-x-2">
         <div className="hidden sm:flex flex-col items-center justify-between h-full">
           <Sidebar />
