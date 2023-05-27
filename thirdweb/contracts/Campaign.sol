@@ -1,9 +1,12 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.9;
 
+// Dashboard - https://thirdweb.com/sepolia/0x21a557902fe687B340e36C2C912782C18e64BB2D/explorer
+
 contract CrowdFunding {
     struct Campaign {
         address owner;
+        string ownerName;
         string title;
         string description;
         string image;
@@ -23,6 +26,7 @@ contract CrowdFunding {
 
     function createCampaign(
         address _owner,
+        string memory _ownerName,
         string memory _title,
         string memory _description,
         string memory _image,
@@ -31,6 +35,7 @@ contract CrowdFunding {
     ) public returns (uint256) {
         Campaign memory newCampaign = Campaign({
             owner: _owner,
+            ownerName: _ownerName,
             title: _title,
             description: _description,
             image: _image,
@@ -58,15 +63,15 @@ contract CrowdFunding {
         return sent;
     }
 
+    function deleteCampaign(uint256 _id) public {
+        delete campaigns[_id];
+    }
+
     function getAllCampaigns() public view returns (Campaign[] memory) {
         return campaigns;
     }
 
-    function getCampaignDonors(uint256 _id)
-        public
-        view
-        returns (address[] memory, uint256[] memory)
-    {
+    function getCampaignDonors(uint256 _id) public view returns (address[] memory, uint256[] memory) {
         Campaign storage campaign = campaigns[_id];
         return (campaign.donors, campaign.donations);
     }
