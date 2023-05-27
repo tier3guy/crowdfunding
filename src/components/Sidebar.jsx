@@ -13,7 +13,7 @@ import { Logo, Sun } from "../assets/icons";
 import { useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
-  const [active, setActive] = useState < string > "dashboard";
+  const [active, setActive] = useState("dashboard");
   const navigate = useNavigate();
   return (
     <div className="text-white h-full flex flex-col justify-between items-center space-y-4">
