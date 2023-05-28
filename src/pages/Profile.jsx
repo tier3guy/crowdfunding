@@ -35,7 +35,7 @@ const Profile = () => {
         <div className="flex space-x-3 items-center">
           {/* <p className="text-xl font-semibold">Connected Account</p> */}
           <p className="px-4 py-2 bg-active rounded-3xl text-sm">
-            {address.substring(0, 5) + " ... " + address.substring(35)}
+            {address?.substring(0, 5) + " ... " + address?.substring(35)}
           </p>
         </div>
         <div className="mt-10">
@@ -51,7 +51,7 @@ const Profile = () => {
       <h1 className="text-white text-3xl font-semibold my-4 mt-10">
         {`Your Campaigns (${myCampaigns.length})`}
       </h1>
-      {allCampaign.length === 0 && (
+      {myCampaigns.length === 0 && (
         <p className="text-slate-500">You have'nt created any campaign yet.</p>
       )}
       <div className="mt-4 text-white grid grid-col-1 sm:grid-col-2 md:grid-cols-3 md:gap-4">

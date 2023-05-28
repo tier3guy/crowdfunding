@@ -37,6 +37,7 @@ const StateContextProvider = ({ children }) => {
   const address = useAddress();
 
   const getAllCampaigns = async () => {
+    setLoading(true);
     try {
       if (!contract) return;
       const res = await contract.call("getAllCampaigns", []);
@@ -64,7 +65,13 @@ const StateContextProvider = ({ children }) => {
         };
       });
       setAllCampaigns(campaigns);
-    } catch (err) {}
+      setLoading(false);
+    } catch (err) {
+      SetModalMessge(
+        "Some Error has been occured while fetching the Campaigns data."
+      );
+      setLoading(false);
+    }
   };
 
   const createCampaign = async (
@@ -89,11 +96,31 @@ const StateContextProvider = ({ children }) => {
         new Date(deadline).getTime(),
       ]);
       setLoading(false);
+      await getAllCampaigns();
       SetModalMessge("Campaign has been created successfully.");
     } catch (err) {
       setLoading(false);
       console.log(err);
       SetModalMessge("Some ERROR has been occured.");
+    }
+  };
+
+  const donateToCampaign = async (_id, _value) => {
+    setLoading(true);
+    try {
+      const res = await contract.call("donateToCampaign", [_id], {
+        value: ethers.utils.parseEther(_value),
+      });
+      console.log(res);
+      setLoading(false);
+      await getAllCampaigns();
+      SetModalMessge(
+        "Congratulations! You Funds have been securely transfered."
+      );
+    } catch (err) {
+      console.log(err);
+      SetModalMessge("Transaction Failed. Please try again later.");
+      setLoading(false);
     }
   };
 
@@ -117,6 +144,7 @@ const StateContextProvider = ({ children }) => {
         setAllCampaigns,
         createCampaign,
         getAllCampaigns,
+        donateToCampaign,
         active,
         setActive,
         isLogoutModalOn,
