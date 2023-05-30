@@ -25,8 +25,14 @@ import { useStateContext } from "../contexts";
 const Navbar = () => {
   const [toggleMenu, setToggleMenu] = useState(true);
 
-  const { setModalMessage, address, connect, active, setActive } =
-    useStateContext();
+  const {
+    setModalMessage,
+    address,
+    connect,
+    active,
+    setActive,
+    setIsLogoutModalOn,
+  } = useStateContext();
   const navigate = useNavigate();
 
   const toggleMenuBar = () => {
@@ -105,7 +111,19 @@ const Navbar = () => {
                   }
                 }}
               >
-                <Link to={navlink.link} className="flex items-center space-x-4">
+                <div
+                  className="flex items-center space-x-4"
+                  onClick={() => {
+                    if (!navlink.disabled) {
+                      if (navlink.name === "logout") {
+                        setIsLogoutModalOn(true);
+                        return;
+                      }
+                      setActive(navlink.name);
+                      navigate(navlink.link);
+                    }
+                  }}
+                >
                   <Icon
                     name={navlink.name}
                     active={active}
@@ -119,7 +137,7 @@ const Navbar = () => {
                   >
                     {CapitilizeFirstLetter(navlink.name)}
                   </p>
-                </Link>
+                </div>
               </div>
             );
           })}

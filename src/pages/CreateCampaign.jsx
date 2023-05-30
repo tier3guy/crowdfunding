@@ -14,7 +14,8 @@ import { useStateContext } from "../contexts";
 import { checkImageURL } from "../utils";
 
 const CreateCampaign = () => {
-  const { createCampaign, setModalMessage } = useStateContext();
+  const { createCampaign, setModalMessage, address, connect } =
+    useStateContext();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -40,6 +41,19 @@ const CreateCampaign = () => {
     target: "ETH 0.5",
     deadline: "End Date *",
   };
+
+  if (!address) {
+    return (
+      <div className="bg-gray w-full text-white px-4 py-8 md:p-16 flex items-center justify-center flex-col rounded-xl min-h-[65vh] md:min-h-[80vh]">
+        <h1 className="text-5xl">Oops!</h1>
+        <p className="text-slate-500 mt-3 w-1/2 text-center">
+          To create and to donate in a Campaign you have to Connect your Wallet
+          first
+        </p>
+        <Button label={"Connect"} onClick={connect} styles={"bg-purple mt-4"} />
+      </div>
+    );
+  }
 
   return (
     <div className="bg-gray w-full text-white px-4 py-8 md:p-16 flex items-center justify-center flex-col rounded-xl">

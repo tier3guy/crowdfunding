@@ -1,12 +1,8 @@
 // Contexts
 import { useStateContext } from "../contexts";
 
-// External Imports
-import { useLogout } from "@thirdweb-dev/react";
-
 const LogoutModal = () => {
-  const { isLogoutModalOn, setIsLogoutModalOn } = useStateContext();
-  const { logout } = useLogout();
+  const { isLogoutModalOn, setIsLogoutModalOn, logout } = useStateContext();
 
   return (
     <div
@@ -29,14 +25,13 @@ const LogoutModal = () => {
           </button>
           <button
             onClick={async () => {
-              return;
               try {
-                logout();
+                await logout();
               } catch (err) {
                 console.log(err);
               }
             }}
-            className="bg-green text-white p-4 w-1/2 rounded-xl cursor-not-allowed"
+            className="bg-green text-white p-4 w-1/2 rounded-xl"
           >
             Yes, Sure
           </button>

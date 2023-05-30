@@ -20,7 +20,15 @@ const container = document.getElementById("root");
 const root = createRoot(container);
 root.render(
   <React.StrictMode>
-    <ThirdwebProvider activeChain={Sepolia}>
+    <ThirdwebProvider
+      activeChain={Sepolia}
+      authConfig={{
+        // Set this to your domain to prevent phishing attacks
+        // domain: "",
+        // The URL of your Auth API
+        authUrl: "/logout",
+      }}
+    >
       <StateContextProvider>
         <BrowserRouter>
           <App />

@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 
 // Components
-import { CampaignCard } from "../components";
+import { CampaignCard, Button } from "../components";
 
 // Contexts
 import { useStateContext } from "../contexts";
@@ -16,7 +16,7 @@ const getTotalRevenue = (campaigns) => {
 };
 
 const Profile = () => {
-  const { getAllCampaigns, allCampaign, address } = useStateContext();
+  const { getAllCampaigns, allCampaign, address, connect } = useStateContext();
   const [myCampaigns, setMyCampaigns] = useState([]);
 
   useEffect(() => {
@@ -28,6 +28,19 @@ const Profile = () => {
       allCampaign.filter((campaign) => campaign.owner === address)
     );
   }, [allCampaign]);
+
+  if (!address) {
+    return (
+      <div className="bg-gray p-6 text-white rounded-lg w-full min-h-[65vh] md:min-h-[80vh] flex flex-col items-center justify-center">
+        <h1 className="text-5xl">Oops!</h1>
+        <p className="text-slate-500 mt-3 w-1/2 text-center">
+          You are not connected with your Metamask Account. To visit your
+          profile please connect your Metamask first.
+        </p>
+        <Button label={"Connect"} onClick={connect} styles={"bg-purple mt-4"} />
+      </div>
+    );
+  }
 
   return (
     <div className="w-full">

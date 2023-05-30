@@ -2,7 +2,12 @@
 import { useState, useContext, createContext, useEffect } from "react";
 
 // External Imports
-import { useAddress, useMetamask, useContract } from "@thirdweb-dev/react";
+import {
+  useAddress,
+  useMetamask,
+  useContract,
+  useLogout,
+} from "@thirdweb-dev/react";
 import { ethers } from "ethers";
 
 // Utils
@@ -34,8 +39,19 @@ const StateContextProvider = ({ children }) => {
   const { contract } = useContract(ContractAddress);
   const [allCampaign, setAllCampaigns] = useState([]);
   const [filteredCampaign, setFilteredCampaign] = useState([]);
+  const { logout, isLoading } = useLogout();
   const connect = useMetamask();
   const address = useAddress();
+
+  const connectToMetamask = async () => {
+    try {
+      await connect();
+    } catch (err) {
+      SetModalMessge(
+        "Some ERROR has been occured. While connecting to the Metamask"
+      );
+    }
+  };
 
   const getAllCampaigns = async () => {
     setLoading(true);
@@ -126,6 +142,27 @@ const StateContextProvider = ({ children }) => {
     }
   };
 
+  const logoutFunc = async () => {
+    setLoading(true);
+    try {
+      const res = await logout();
+      console.log(res);
+      setIsLogoutModalOn(false);
+      // SetModalMessge("Logged out successfully.");
+      SetModalMessge(
+        "Some ERROR has been occured. While logging out from yout Metamask account."
+      );
+      setLoading(false);
+    } catch (err) {
+      console.log(err);
+      setIsLogoutModalOn(false);
+      SetModalMessge(
+        "Some ERROR has been occured. While logging out from yout Metamask account."
+      );
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     getAllCampaigns();
   }, [address, contract]);
@@ -134,7 +171,7 @@ const StateContextProvider = ({ children }) => {
     <StateContext.Provider
       value={{
         address,
-        connect,
+        connect: connectToMetamask,
         ContractAddress,
         modalMessage,
         setModalMessage: SetModalMessge,
@@ -153,6 +190,7 @@ const StateContextProvider = ({ children }) => {
         setActive,
         isLogoutModalOn,
         setIsLogoutModalOn,
+        logout: logoutFunc,
       }}
     >
       {children}
