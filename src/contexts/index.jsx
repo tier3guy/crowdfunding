@@ -33,6 +33,7 @@ const StateContextProvider = ({ children }) => {
   const WEI_VALUE = "1000000000000000000";
   const { contract } = useContract(ContractAddress);
   const [allCampaign, setAllCampaigns] = useState([]);
+  const [filteredCampaign, setFilteredCampaign] = useState([]);
   const connect = useMetamask();
   const address = useAddress();
 
@@ -65,6 +66,7 @@ const StateContextProvider = ({ children }) => {
         };
       });
       setAllCampaigns(campaigns);
+      setFilteredCampaign(campaigns);
       setLoading(false);
     } catch (err) {
       SetModalMessge(
@@ -142,6 +144,8 @@ const StateContextProvider = ({ children }) => {
         setLoading,
         allCampaign,
         setAllCampaigns,
+        filteredCampaign,
+        setFilteredCampaign,
         createCampaign,
         getAllCampaigns,
         donateToCampaign,

@@ -23,7 +23,6 @@ import { CapitilizeFirstLetter } from "../utils";
 import { useStateContext } from "../contexts";
 
 const Navbar = () => {
-  const [value, setValue] = useState("");
   const [toggleMenu, setToggleMenu] = useState(true);
 
   const { setModalMessage, address, connect, active, setActive } =
@@ -53,11 +52,7 @@ const Navbar = () => {
     <>
       <div className="hidden md:block w-full">
         <nav className="flex flex-row items-center justify-between">
-          <SearchBar
-            value={value}
-            setValue={setValue}
-            placeholder="Search for campaigns"
-          />
+          <SearchBar />
           <div className="flex space-x-3 items-center">
             <Button
               label={address ? "Create a Campaign" : "Connect"}
@@ -89,12 +84,7 @@ const Navbar = () => {
             </div>
           </div>
           <div className="w-full my-6">
-            <SearchBar
-              value={value}
-              setValue={setValue}
-              placeholder="Search for campaigns"
-              styles="relative w-full"
-            />
+            <SearchBar styles="relative w-full" />
           </div>
         </nav>
         <div
